@@ -1,4 +1,4 @@
 export const isEmail = (email: string): boolean => {
-  const emailRegex = /^[w-.]+@([w-]+.)+[w-]{2,4}$/;
-  return emailRegex.test(email);
+  // eslint-disable-next-line no-useless-escape
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 };
