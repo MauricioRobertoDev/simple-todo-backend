@@ -15,8 +15,6 @@ export class UserEmail {
       return left(bundle);
     }
 
-    value = value as string;
-
     if (!value.trim()) {
       bundle.add(new AppError("email", Message.EMAIL_REQUIRED));
       return left(bundle);

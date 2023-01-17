@@ -7,4 +7,6 @@ export const Message = {
   NAME_LONG: "Não deve ter mais do que 255 caracteres",
   NAME_SHORT: "Não deve ter menos do que 3 caracteres",
   NAME_INVALID: "Nome inválido",
+  PASSWORD_SHORT: "Não deve ter menos do que 6 caracteres",
+  PASSWORD_LONG: "Não deve ter mais do que 20 caracteres",
 };

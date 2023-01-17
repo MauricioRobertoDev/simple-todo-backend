@@ -15,8 +15,6 @@ export class UserName {
       return left(bundle);
     }
 
-    value = value as string;
-
     if (!value.trim()) {
       bundle.add(new AppError("name", Message.FIELD_REQUIRED));
       return left(bundle);

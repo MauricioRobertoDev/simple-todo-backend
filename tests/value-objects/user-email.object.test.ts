@@ -6,38 +6,38 @@ import { Message } from "@/util/messages";
 
 describe("UserEmail", () => {
   test("Deve retornar um UserEmail com valor formatado corretamente", () => {
-    const emailOrErros = UserEmail.create("VaLid_EmAiL@dOmain.com");
-    expect(emailOrErros.isRight()).toBeTruthy();
-    expect(emailOrErros.getValue()).toBeInstanceOf(UserEmail);
-    expect((emailOrErros.getValue() as UserEmail).value).toBe(
+    const emailOrErrors = UserEmail.create("VaLid_EmAiL@dOmain.com");
+    expect(emailOrErrors.isRight()).toBeTruthy();
+    expect(emailOrErrors.getValue()).toBeInstanceOf(UserEmail);
+    expect((emailOrErrors.getValue() as UserEmail).value).toBe(
       "valid_email@domain.com"
     );
   });
 
   test("Deve retornar um ErrorBundle caso passe email vazio", () => {
-    let emailOrErros = UserEmail.create("");
-    expect(emailOrErros.isLeft()).toBeTruthy();
-    expect(emailOrErros.getValue()).toBeInstanceOf(ErrorBundle);
+    let emailOrErrors = UserEmail.create("");
+    expect(emailOrErrors.isLeft()).toBeTruthy();
+    expect(emailOrErrors.getValue()).toBeInstanceOf(ErrorBundle);
     expect(
-      (emailOrErros.getValue() as ErrorBundle).getErrors()[0].message
+      (emailOrErrors.getValue() as ErrorBundle).getErrors()[0].message
     ).toBe(Message.EMAIL_REQUIRED);
 
-    emailOrErros = UserEmail.create(" ");
-    expect(emailOrErros.isLeft()).toBeTruthy();
-    expect(emailOrErros.getValue()).toBeInstanceOf(ErrorBundle);
+    emailOrErrors = UserEmail.create(" ");
+    expect(emailOrErrors.isLeft()).toBeTruthy();
+    expect(emailOrErrors.getValue()).toBeInstanceOf(ErrorBundle);
     expect(
-      (emailOrErros.getValue() as ErrorBundle).getErrors()[0].message
+      (emailOrErrors.getValue() as ErrorBundle).getErrors()[0].message
     ).toBe(Message.EMAIL_REQUIRED);
   });
 
   test("Deve retornar um ErrorBundle caso passe um tipo any não compatível", () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const anyValue: any = 100;
-    const emailOrErros = UserEmail.create(anyValue);
-    expect(emailOrErros.isLeft()).toBeTruthy();
-    expect(emailOrErros.getValue()).toBeInstanceOf(ErrorBundle);
+    const emailOrErrors = UserEmail.create(anyValue);
+    expect(emailOrErrors.isLeft()).toBeTruthy();
+    expect(emailOrErrors.getValue()).toBeInstanceOf(ErrorBundle);
     expect(
-      (emailOrErros.getValue() as ErrorBundle).getErrors()[0].message
+      (emailOrErrors.getValue() as ErrorBundle).getErrors()[0].message
     ).toBe(Message.EMAIL_INVALID);
   });
 
@@ -45,13 +45,13 @@ describe("UserEmail", () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
     const as = "a".repeat(256);
-    const emailOrErros = UserEmail.create(
+    const emailOrErrors = UserEmail.create(
       `em${as}il_valid_but_to_long@abc.com`
     );
-    expect(emailOrErros.isLeft()).toBeTruthy();
-    expect(emailOrErros.getValue()).toBeInstanceOf(ErrorBundle);
+    expect(emailOrErrors.isLeft()).toBeTruthy();
+    expect(emailOrErrors.getValue()).toBeInstanceOf(ErrorBundle);
     expect(
-      (emailOrErros.getValue() as ErrorBundle).getErrors()[0].message
+      (emailOrErrors.getValue() as ErrorBundle).getErrors()[0].message
     ).toBe(Message.EMAIL_TO_LONG);
   });
 });
