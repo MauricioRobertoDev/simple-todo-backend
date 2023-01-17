@@ -40,7 +40,6 @@ export class UserPassword {
 
     if (!isEncryptedPassword) {
       pass.encryptPassword();
-      console.log("encripitei - > ", value);
     }
 
     return right(pass);
