@@ -1,5 +1,9 @@
 import { AppError } from "@/errors/app.error";
 
+type ErrorData = {
+  [key: string]: string[];
+};
+
 export class ErrorBundle {
   private constructor(private readonly errors: AppError[] = []) {}
 
@@ -31,5 +35,14 @@ export class ErrorBundle {
 
   public getErrors(): AppError[] {
     return this.errors;
+  }
+
+  public getErrorData(): ErrorData {
+    const data: ErrorData = {};
+    this.errors.forEach((error) => {
+      if (!data[error.type]) data[error.type] = [];
+      data[error.type].push(error.message);
+    });
+    return data;
   }
 }

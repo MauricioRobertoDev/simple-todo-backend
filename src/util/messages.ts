@@ -12,4 +12,6 @@ export const Message = {
   PASSWORD_LONG: "Não deve ter mais do que 20 caracteres",
   SERVER_ERROR: "Erro do servidor tente novamente",
   DATABASE_ERROR: "Error ao tentar executar uma operação no banco de dados",
+  CREATED_ACCOUNT: "Conta criada, faça seu login",
+  VALIDATION_ERRORS: "Verefique os dados e tente novamente",
 };
