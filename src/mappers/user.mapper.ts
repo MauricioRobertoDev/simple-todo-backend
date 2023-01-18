@@ -1,10 +1,11 @@
 import { User } from "@/entities";
 
-type UserData = {
+export type UserData = {
   id: string;
   name: string;
   email: string;
   password: string;
+  accessToken?: string;
 };
 
 export class UserMapper {
@@ -14,6 +15,7 @@ export class UserMapper {
       name: user.name.getValue(),
       email: user.email.getValue(),
       password: user.password.getValue(),
+      accessToken: user.accessToken,
     };
   }
 }
