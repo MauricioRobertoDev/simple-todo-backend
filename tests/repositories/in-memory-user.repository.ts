@@ -11,24 +11,9 @@ export class InMemoryUserRepository implements UserRepository {
     return user ? true : false;
   }
 
-  async save(props: {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  }): Promise<User> {
-    const user = User.createFromData(props);
+  async save(user: User): Promise<User> {
     this._users.push(user);
     return user;
-  }
-
-  update(props: {
-    id: string;
-    name?: string | undefined;
-    email?: string | undefined;
-    password?: string | undefined;
-  }): Promise<User> {
-    throw new Error("Method not implemented.");
   }
 
   async findById(id: string): Promise<User | null> {

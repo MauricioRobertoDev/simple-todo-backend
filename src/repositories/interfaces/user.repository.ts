@@ -5,17 +5,5 @@ export interface UserRepository {
 
   exists(email: string): Promise<boolean>;
 
-  save(props: {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  }): Promise<User>;
-
-  update(props: {
-    id: string;
-    name?: string;
-    email?: string;
-    password?: string;
-  }): Promise<User>;
+  save(user: User): Promise<User>;
 }
