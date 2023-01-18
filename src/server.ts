@@ -1,5 +1,6 @@
 import process from "process";
 import express from "express";
+import userRouter from "./routes/user.routers";
 
 export class Server {
   start() {
@@ -21,6 +22,7 @@ export class Server {
     const app = express();
 
     app.use(express.json());
+    app.use("/usuarios", userRouter);
 
     app.listen(port, () =>
       console.log(`🔥 Servidor rodando na porta ${port}...`)
