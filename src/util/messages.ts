@@ -13,4 +13,7 @@ export const Message = {
   SERVER_ERROR: "Erro do servidor tente novamente",
   CREATED_ACCOUNT: "Conta criada, faça seu login",
   VALIDATION_ERRORS: "Verefique os dados e tente novamente",
+  INCORRECT_CREDENTIALS: "E-mail ou senha incorretos",
+  SECRET_NOT_DEFINED: "O segredo para gerar tokens não foi definido",
+  DB_ERROR_CREATING_USER: "Erro ao tentar inserir usuário no banco de dados",
 };
