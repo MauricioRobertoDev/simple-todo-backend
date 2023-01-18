@@ -34,4 +34,8 @@ export class UserEmail {
 
     return right(new UserEmail(value.toLocaleLowerCase()));
   }
+
+  public getValue(): string {
+    return this.value;
+  }
 }

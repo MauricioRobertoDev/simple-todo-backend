@@ -34,4 +34,8 @@ export class UserName {
 
     return right(new UserName(value.toLowerCase()));
   }
+
+  public getValue(): string {
+    return this.value;
+  }
 }
