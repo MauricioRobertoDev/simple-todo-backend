@@ -7,13 +7,13 @@ import { UserRepository } from "@/repositories/interfaces";
 import { ErrorBundle } from "@/shared/error-bundle";
 import { Message } from "@/util/messages";
 
-type CreateUserInput = {
+export type CreateUserInput = {
   name: string;
   email: string;
   password: string;
 };
 
-type CreateUserOutput = {
+export type CreateUserOutput = {
   id: string;
   name: string;
   email: string;

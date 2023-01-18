@@ -39,8 +39,8 @@ describe("UserName", () => {
     ).toBe(Message.NEEDS_TO_BE_A_STRING);
   });
 
-  test("Deve retornar um ErrorBundle caso tenha mais de 255 caracteres", () => {
-    const as = "a".repeat(256);
+  test("Deve retornar um ErrorBundle caso tenha mais de 25 caracteres", () => {
+    const as = "a".repeat(25);
     const nameOrErrors = UserName.create(`na${as}me_valid_but_to_long`);
     expect(nameOrErrors.isLeft()).toBeTruthy();
     expect(nameOrErrors.getValue()).toBeInstanceOf(ErrorBundle);

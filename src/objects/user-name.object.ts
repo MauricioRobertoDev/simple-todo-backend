@@ -20,7 +20,7 @@ export class UserName {
       return left(bundle);
     }
 
-    if (isLongerThan(value, 255)) {
+    if (isLongerThan(value, 25)) {
       bundle.add(new AppError("name", Message.NAME_LONG));
     }
 
