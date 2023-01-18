@@ -11,16 +11,35 @@ type UserProps = {
   password: UserPassword;
 };
 
+type IUser = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export class User extends Entity<UserProps> {
-  private constructor(props: UserProps, id?: string) {
+  private constructor(protected props: UserProps, id?: string) {
     super(props, id);
   }
 
-  public static create(
-    props: UserProps,
-    id?: string
-  ): Either<ErrorBundle, User> {
-    return right(new User(props, id));
+  public static create(data: IUser, id?: string): Either<ErrorBundle, User> {
+    const bundle = ErrorBundle.create();
+
+    const nameOrErrors = UserName.create(data.name);
+    const emailOrErrors = UserEmail.create(data.email);
+    const passwordOrErrors = UserPassword.create(data.password);
+
+    if (nameOrErrors.isLeft()) bundle.combine(nameOrErrors.getValue());
+    if (emailOrErrors.isLeft()) bundle.combine(emailOrErrors.getValue());
+    if (passwordOrErrors.isLeft()) bundle.combine(passwordOrErrors.getValue());
+
+    if (bundle.hasErrors()) return left(bundle);
+
+    const name = nameOrErrors.getValue() as UserName;
+    const email = emailOrErrors.getValue() as UserEmail;
+    const password = passwordOrErrors.getValue() as UserPassword;
+
+    return right(new User({ name, email, password }, id));
   }
 
   get name(): UserName {
@@ -33,29 +52,5 @@ export class User extends Entity<UserProps> {
 
   get password(): UserPassword {
     return this.props.password;
-  }
-
-  public getData() {
-    return {
-      id: this.id,
-      name: this.name.value,
-      email: this.email.value,
-      password: this.password.getValue(),
-    };
-  }
-
-  public static createFromData(props: {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  }): User {
-    const name = UserName.create(props.name).getValue() as UserName;
-    const email = UserEmail.create(props.email).getValue() as UserEmail;
-    const password = UserPassword.create(
-      props.password
-    ).getValue() as UserPassword;
-
-    return User.create({ name, email, password }, props.id).getValue() as User;
   }
 }
