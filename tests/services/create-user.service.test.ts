@@ -1,10 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { InMemoryUserRepository } from "../repositories/in-memory-user.repository";
-import { CreateUserOutput, CreateUserService } from "@/services";
+import { CreateUserService } from "@/services";
 import { ErrorBundle } from "@/shared/error-bundle";
+import { User } from "@/entities";
 
 describe("CreateUserService", () => {
-  test("Deve retornar um CreateUserOutput", async () => {
+  test("Deve retornar um User", async () => {
     const userRepository = new InMemoryUserRepository();
     const createUserService = new CreateUserService(userRepository);
 
@@ -15,9 +16,9 @@ describe("CreateUserService", () => {
     });
 
     expect(result.isRight()).toBeTruthy();
-    const data = result.getValue() as CreateUserOutput;
-    expect(data.name).toBe("valid_name");
-    expect(data.email).toBe("valid_email@domain.com");
+    const data = result.getValue() as User;
+    expect(data.name.getValue()).toBe("valid_name");
+    expect(data.email.getValue()).toBe("valid_email@domain.com");
   });
 
   test("Deve retornar um ErrorBundle caso tenha qualquer erro na criação", async () => {
