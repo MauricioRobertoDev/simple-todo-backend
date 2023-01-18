@@ -9,6 +9,7 @@ type UserProps = {
   name: UserName;
   email: UserEmail;
   password: UserPassword;
+  accessToken?: string;
 };
 
 type IUser = {
@@ -42,6 +43,14 @@ export class User extends Entity<UserProps> {
     return right(new User({ name, email, password }, id));
   }
 
+  public setAccessToken(token: string): void {
+    this.props.accessToken = token;
+  }
+
+  public isLoggedIn(): boolean {
+    return this.props.accessToken ? true : false;
+  }
+
   get name(): UserName {
     return this.props.name;
   }
@@ -52,5 +61,9 @@ export class User extends Entity<UserProps> {
 
   get password(): UserPassword {
     return this.props.password;
+  }
+
+  get accessToken(): string | undefined {
+    return this.props.accessToken;
   }
 }
