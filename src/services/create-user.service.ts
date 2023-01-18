@@ -41,9 +41,7 @@ export class CreateUserService implements IService<CreateUserInput, User> {
 
       return right(user);
     } catch (error) {
-      throw new DatabaseError(
-        "Erro ao tentar inserir usuário no banco de dados"
-      );
+      throw new DatabaseError(Message.DB_ERROR_CREATING_USER);
     }
   }
 }

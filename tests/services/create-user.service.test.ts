@@ -1,8 +1,11 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { InMemoryUserRepository } from "../repositories/in-memory-user.repository";
 import { CreateUserService } from "@/services";
 import { ErrorBundle } from "@/shared/error-bundle";
 import { User } from "@/entities";
+
+import { Message } from "@/util/messages";
+import { DatabaseError } from "@/errors/database.error";
 
 describe("CreateUserService", () => {
   test("Deve retornar um User", async () => {
@@ -58,5 +61,22 @@ describe("CreateUserService", () => {
     expect(result1.isRight()).toBeTruthy();
     expect(result2.isLeft()).toBeTruthy();
     expect((result2.getValue() as ErrorBundle).size()).toBe(1);
+  });
+
+  test("Deve estourar um DatabaseError o banco de dados falhe", async () => {
+    const userRepository = new InMemoryUserRepository();
+    const createUserService = new CreateUserService(userRepository);
+
+    vi.spyOn(userRepository, "save").mockRejectedValue(new Error());
+
+    const result = createUserService.execute({
+      name: "valid_nAme",
+      email: "vAlid_Email@domain.cOM",
+      password: "valid_password",
+    });
+
+    expect(result).rejects.toThrow(
+      new DatabaseError(Message.DB_ERROR_CREATING_USER)
+    );
   });
 });
