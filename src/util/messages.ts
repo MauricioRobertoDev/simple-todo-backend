@@ -2,6 +2,7 @@ export const Message = {
   EMAIL_INVALID: "E-mail inválido",
   EMAIL_REQUIRED: "E-mail obrigatório",
   EMAIL_TO_LONG: "E-mail muito longo",
+  EMAIL_IN_USE: "E-mail em uso, faça seu login",
   NEEDS_TO_BE_A_STRING: "Precisa ser um texto",
   FIELD_REQUIRED: "Campo obrigatório",
   NAME_LONG: "Não deve ter mais do que 255 caracteres",
@@ -9,4 +10,6 @@ export const Message = {
   NAME_INVALID: "Nome inválido",
   PASSWORD_SHORT: "Não deve ter menos do que 6 caracteres",
   PASSWORD_LONG: "Não deve ter mais do que 20 caracteres",
+  SERVER_ERROR: "Erro do servidor tente novamente",
+  DATABASE_ERROR: "Error ao tentar executar uma operação no banco de dados",
 };

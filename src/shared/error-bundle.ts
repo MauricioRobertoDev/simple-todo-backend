@@ -7,16 +7,18 @@ export class ErrorBundle {
     return new ErrorBundle(errors);
   }
 
-  public combine(...bundles: ErrorBundle[]): void {
+  public combine(...bundles: ErrorBundle[]): ErrorBundle {
     bundles.forEach((bundle) => {
       this.errors.push(...bundle.getErrors());
     });
+    return this;
   }
 
-  public add(...errors: AppError[]): void {
+  public add(...errors: AppError[]): ErrorBundle {
     errors.forEach((error) => {
       this.errors.push(error);
     });
+    return this;
   }
 
   public size(): number {
