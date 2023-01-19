@@ -47,8 +47,6 @@ describe("UserEmail", () => {
   });
 
   test("Deve retornar um ErrorBundle caso tenha mais de 255 caracteres", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
     const as = "a".repeat(256);
     const emailOrErrors = UserEmail.create(
       `em${as}il_valid_but_to_long@abc.com`
