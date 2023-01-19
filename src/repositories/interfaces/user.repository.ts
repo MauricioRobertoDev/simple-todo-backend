@@ -7,5 +7,5 @@ export interface UserRepository {
 
   exists(email: string): Promise<boolean>;
 
-  save(user: User): Promise<User>;
+  save(user: User): Promise<void>;
 }
