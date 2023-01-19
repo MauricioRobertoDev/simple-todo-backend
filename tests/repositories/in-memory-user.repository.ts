@@ -1,6 +1,4 @@
 import { User } from "@/entities";
-import { right } from "@/errors/either";
-import { UserName } from "@/objects/user-name.object";
 import { UserRepository } from "@/repositories/interfaces";
 
 export class InMemoryUserRepository implements UserRepository {
