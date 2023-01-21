@@ -3,7 +3,8 @@ import { Router } from "express";
 
 const authRouter = Router();
 
-authRouter.get("/registrar", new SignupController().handle);
-authRouter.get("/entrar", new SigninController().handle);
+authRouter.post("/registrar", new SignupController().handle);
+authRouter.post("/entrar", new SigninController().handle);
+authRouter.get("/buh", (req, res) => res.send("batata"));
 
 export default authRouter;
