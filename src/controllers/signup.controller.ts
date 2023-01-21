@@ -6,7 +6,7 @@ import { HttpStatus } from "@/util/http-status";
 import { Message } from "@/util/messages";
 import { Request, Response } from "express";
 
-export class SigninController implements IController {
+export class SignupController implements IController {
   async handle(req: Request, res: Response): Promise<Response> {
     const userRepository = new PrismaUserRepository();
     const createUserService = new CreateUserService(userRepository);
@@ -27,6 +27,8 @@ export class SigninController implements IController {
     const userData: Omit<UserData, "password"> = UserMapper.toDTO(
       userDataOrErrors.getValue()
     );
+
+    console.log(userData);
 
     return res.status(HttpStatus.CREATED).json({
       message: Message.CREATED_ACCOUNT,
