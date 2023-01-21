@@ -28,8 +28,6 @@ export class SignupController implements IController {
       userDataOrErrors.getValue()
     );
 
-    console.log(userData);
-
     return res.status(HttpStatus.CREATED).json({
       message: Message.CREATED_ACCOUNT,
       data: userData,
