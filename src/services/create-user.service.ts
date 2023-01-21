@@ -37,10 +37,11 @@ export class CreateUserService implements IService<CreateUserInput, User> {
         return left(bundle);
       }
 
-      const user = await this.userRepository.save(userOrError.getValue());
+      await this.userRepository.save(userOrError.getValue());
 
-      return right(user);
+      return right(userOrError.getValue());
     } catch (error) {
+      console.log(error);
       throw new DatabaseError(Message.DB_ERROR_CREATING_USER);
     }
   }

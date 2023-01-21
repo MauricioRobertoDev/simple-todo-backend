@@ -67,7 +67,7 @@ describe("CreateUserService", () => {
     const userRepository = new InMemoryUserRepository();
     const createUserService = new CreateUserService(userRepository);
 
-    vi.spyOn(userRepository, "save").mockRejectedValue(new Error());
+    vi.spyOn(userRepository, "save").mockRejectedValue("");
 
     const result = createUserService.execute({
       name: "valid_nAme",
