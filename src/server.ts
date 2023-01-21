@@ -1,34 +1,10 @@
-import process from "process";
 import express from "express";
+import authRouter from "@/routes/auth.routers";
 
-export class Server {
-  start() {
-    console.log("🚀 Iniciando a aplicação...");
-    this.setupDatabase();
-    this.setupExpress();
-  }
+const app = express();
 
-  setupExpress() {
-    console.log("🚀 Iniciando o servidor express...");
+app.use(express.json());
 
-    let port = Number(process.env.SERVER_PORT);
+app.use(authRouter);
 
-    if (!port) {
-      port = 3000;
-      console.log("❗Porta não encontrada usando por padrão...");
-    }
-
-    const app = express();
-
-    app.use(express.json());
-
-    app.listen(port, () =>
-      console.log(`🔥 Servidor rodando na porta ${port}...`)
-    );
-  }
-
-  setupDatabase() {
-    console.log("🚀 Iniciando conexão com banco de dados...");
-    console.log("🔥 Conexão com banco de dados estabelecida...");
-  }
-}
+export { app };
