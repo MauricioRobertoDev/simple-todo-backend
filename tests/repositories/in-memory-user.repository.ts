@@ -14,9 +14,8 @@ export class InMemoryUserRepository implements UserRepository {
     return user ? true : false;
   }
 
-  async save(user: User): Promise<User> {
+  async save(user: User): Promise<void> {
     this._users.push(user);
-    return user;
   }
 
   async findById(id: string): Promise<User | null> {
