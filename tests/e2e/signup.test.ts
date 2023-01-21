@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 
 import { app } from "@/server";
 import { Message } from "@/util/messages";
+import { HttpStatus } from "@/util/http-status";
 
 describe("Signup", () => {
   test("[e2e] Deve criar um usuário", async () => {
@@ -11,6 +12,8 @@ describe("Signup", () => {
       email: "valid_email@domain.com",
       password: "valid_password",
     });
+
+    expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toBeDefined();
     expect(response.body.data).toBeDefined();
     expect(response.body.message).toBe(Message.CREATED_ACCOUNT);
@@ -23,6 +26,7 @@ describe("Signup", () => {
       password: "invalid_password_too_looooooooooooooong",
     });
 
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
     expect(response.body).toBeDefined();
     expect(response.body.errors).toBeDefined();
     expect(response.body.errors.name[0]).toBe(Message.NAME_LONG);
