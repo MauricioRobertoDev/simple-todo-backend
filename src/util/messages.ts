@@ -19,4 +19,6 @@ export const Message = {
   LOGIN_SUCCESS: "Logado com sucesso",
   INVALID_ACCESS_TOKEN: "Token de acesso inválido",
   REQUIRED_ACCESS_TOKEN: "Token de acesso necessário",
+  TODO_DESCRIPTION_LONG: "A descrição precisa ter no máximo 255 caracteres",
+  TODO_DESCRIPTION_SHORT: "A descrição precisa ter no minímo 3 caracteres",
 };
