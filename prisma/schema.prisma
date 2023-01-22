@@ -15,6 +15,19 @@ model UserModel {
   name     String
   email    String @unique
   password String
+  Todo     Todo[]
 
   @@map("users")
+}
+
+model Todo {
+  id          String    @id @unique
+  description String
+  createdAt   DateTime  @default(now())
+  startAt     DateTime
+  endAt       DateTime
+  owner       UserModel @relation(fields: [ownerId], references: [id])
+  ownerId     String
+
+  @@map("todos")
 }
