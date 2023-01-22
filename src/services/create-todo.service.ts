@@ -8,10 +8,7 @@ import { Message } from "@/util/messages";
 
 export type CreateTodoInput = {
   description: string;
-  createdAt: Date;
   ownerId: string;
-  startAt?: Date;
-  endAt?: Date;
 };
 
 export class CreateTodoService implements IService<CreateTodoInput, Todo> {
@@ -19,17 +16,11 @@ export class CreateTodoService implements IService<CreateTodoInput, Todo> {
 
   async execute({
     description,
-    createdAt,
     ownerId,
-    startAt,
-    endAt,
   }: CreateTodoInput): Promise<Either<ErrorBundle, Todo>> {
     const todoOrError = Todo.create({
       description,
-      createdAt,
       ownerId,
-      startAt,
-      endAt,
     });
 
     if (todoOrError.isLeft()) return left(todoOrError.getValue());
