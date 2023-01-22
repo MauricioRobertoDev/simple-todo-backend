@@ -16,6 +16,7 @@ export const Message = {
   INCORRECT_CREDENTIALS: "E-mail ou senha incorretos",
   SECRET_NOT_DEFINED: "O segredo para gerar tokens não foi definido",
   DB_ERROR_CREATING_USER: "Erro ao tentar inserir usuário no banco de dados",
+  DB_ERROR_CREATING_TODO: "Erro ao tentar inserir uma todo no banco de dados",
   LOGIN_SUCCESS: "Logado com sucesso",
   INVALID_ACCESS_TOKEN: "Token de acesso inválido",
   REQUIRED_ACCESS_TOKEN: "Token de acesso necessário",

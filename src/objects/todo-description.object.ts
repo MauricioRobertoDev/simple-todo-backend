@@ -34,4 +34,8 @@ export class TodoDescription {
 
     return right(new TodoDescription(value));
   }
+
+  public getValue(): string {
+    return this.value;
+  }
 }
