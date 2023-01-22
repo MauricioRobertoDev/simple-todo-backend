@@ -6,15 +6,15 @@ import { Entity } from "./abstract.entity";
 type TodoProps = {
   description: TodoDescription;
   status: TodoStatus;
-  createdAt: Date;
   ownerId: string;
+  createdAt?: Date;
   startAt?: Date;
   endAt?: Date;
 };
 
 type ITodo = {
   description: string;
-  createdAt: Date;
+  createdAt?: Date;
   ownerId: string;
   startAt?: Date;
   endAt?: Date;
@@ -63,7 +63,7 @@ export class Todo extends Entity<TodoProps> {
     return this.props.status;
   }
 
-  get createdAt(): Date {
+  get createdAt(): Date | undefined {
     return this.props.createdAt;
   }
 
