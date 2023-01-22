@@ -8,7 +8,6 @@ import { Message } from "@/util/messages";
 
 describe("AuthenticateUserService", () => {
   test("Deve retornar um User logado", async () => {
-    process.env.APP_SECRET = "9eb71ab7420eb452a22787ca4fab501b";
     const userRepository = new InMemoryUserRepository();
     const createUserService = new CreateUserService(userRepository);
     const authenticateUserService = new AuthenticateUserService(userRepository);
