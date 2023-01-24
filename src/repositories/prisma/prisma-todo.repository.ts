@@ -54,8 +54,16 @@ export class PrismaTodoRepository implements TodoRepository {
   }
 
   async save(todo: Todo): Promise<void> {
-    await prisma.todoModel.create({
-      data: {
+    await prisma.todoModel.upsert({
+      where: { id: todo.id },
+      update: {
+        description: todo.description.getValue(),
+        createdAt: todo.createdAt,
+        ownerId: todo.ownerId,
+        startAt: todo.startAt,
+        endAt: todo.endAt,
+      },
+      create: {
         description: todo.description.getValue(),
         createdAt: todo.createdAt,
         ownerId: todo.ownerId,
