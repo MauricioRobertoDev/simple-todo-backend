@@ -23,4 +23,6 @@ export const Message = {
   TODO_DESCRIPTION_LONG: "A descrição precisa ter no máximo 255 caracteres",
   TODO_DESCRIPTION_SHORT: "A descrição precisa ter no minímo 3 caracteres",
   CREATED_TODO: "Todo criada com sucesso",
+  TODO_NOT_FOUND: "Todo não encontrada verefique o id",
+  UPDATED_TODO: "Todo atualizada",
 };
