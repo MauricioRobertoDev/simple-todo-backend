@@ -48,7 +48,7 @@ export class EditTodoService implements IService<EditTodoInput, Todo> {
       await this.todoRepository.save(newTodoOrError.getValue());
       return right(newTodoOrError.getValue());
     } catch (error) {
-      throw new DatabaseError(Message.DB_ERROR_CREATING_TODO);
+      throw new DatabaseError(Message.DB_ERROR_UPDATING_TODO);
     }
   }
 }
