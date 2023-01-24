@@ -23,11 +23,11 @@ export class CreateTodoController implements IController {
       });
     }
 
-    const userData = TodoMapper.toDTO(todoOrErrors.getValue());
+    const todoData = TodoMapper.toDTO(todoOrErrors.getValue());
 
     return res.status(HttpStatus.CREATED).json({
       message: Message.CREATED_TODO,
-      data: userData,
+      data: todoData,
     });
   }
 }
