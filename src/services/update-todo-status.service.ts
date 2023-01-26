@@ -24,7 +24,7 @@ export class UpdateStatusTodoService
       const endAt = oldTodo?.startAt ? oldTodo?.endAt ?? new Date() : undefined;
 
       const todoOrErrors = await editTodoService.execute({
-        id: id,
+        id,
         startAt,
         endAt,
       });
