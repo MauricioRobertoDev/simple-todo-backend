@@ -7,7 +7,7 @@ import { UserEmail } from "@/objects";
 import { UserRepository } from "@/repositories/interfaces";
 import { ErrorBundle } from "@/shared/error-bundle";
 import { Message } from "@/util/messages";
-import jwt from "jsonwebtoken";
+import { AuthService } from "./auth.service";
 
 export type AuthenticationInput = {
   email: string;
@@ -41,7 +41,7 @@ export class AuthenticateUserService
 
     if (!secret) throw new ServerError(Message.SECRET_NOT_DEFINED);
 
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn: "1d" });
+    const token = AuthService.generateJwtToken({ id: user.id });
 
     user.setAccessToken(token);
 
