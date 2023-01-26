@@ -41,7 +41,6 @@ export class CreateUserService implements IService<CreateUserInput, User> {
 
       return right(userOrError.getValue());
     } catch (error) {
-      console.log(error);
       throw new DatabaseError(Message.DB_ERROR_CREATING_USER);
     }
   }
