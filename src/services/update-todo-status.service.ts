@@ -14,16 +14,18 @@ export type UpdateStatusInput = {
 export class UpdateStatusTodoService
   implements IService<UpdateStatusInput, Todo>
 {
-  constructor(private todoRepository: TodoRepository) {}
+  constructor(
+    private todoRepository: TodoRepository,
+    private editTodoService: EditTodoService
+  ) {}
 
   async execute({ id }: UpdateStatusInput): Promise<Either<ErrorBundle, Todo>> {
     try {
       const oldTodo = await this.todoRepository.findById(id);
-      const editTodoService = new EditTodoService(this.todoRepository);
       const startAt = oldTodo?.startAt ?? new Date();
       const endAt = oldTodo?.startAt ? oldTodo?.endAt ?? new Date() : undefined;
 
-      const todoOrErrors = await editTodoService.execute({
+      const todoOrErrors = await this.editTodoService.execute({
         id,
         startAt,
         endAt,
