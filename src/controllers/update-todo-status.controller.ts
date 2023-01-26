@@ -1,5 +1,5 @@
 import { IController } from "@/interfaces";
-import { TodoMapper } from "@/mappers/todo.mapper";
+import { TodoData, TodoMapper } from "@/mappers/todo.mapper";
 import { PrismaTodoRepository } from "@/repositories/prisma/prisma-todo.repository";
 import { EditTodoService } from "@/services";
 import { UpdateStatusTodoService } from "@/services/update-todo-status.service";
@@ -27,7 +27,11 @@ export class UpdateStatusTodoController implements IController {
       });
     }
 
-    const todoData = TodoMapper.toDTO(todoOrErrors.getValue());
+    const todoData: Partial<TodoData> = TodoMapper.toDTO(
+      todoOrErrors.getValue()
+    );
+
+    delete todoData.ownerId;
 
     return res.status(HttpStatus.OK).json({
       message: Message.UPDATED_TODO,
