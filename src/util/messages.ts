@@ -18,6 +18,7 @@ export const Message = {
   DB_ERROR_CREATING_USER: "Erro ao tentar inserir usuário no banco de dados",
   DB_ERROR_CREATING_TODO: "Erro ao tentar inserir uma todo no banco de dados",
   DB_ERROR_UPDATING_TODO: "Erro ao tentar atualizar uma todo no banco de dados",
+  DB_ERROR_LISTING_TODO: "Erro ai tentar listar as todos pelo banco de dados",
   LOGIN_SUCCESS: "Logado com sucesso",
   INVALID_ACCESS_TOKEN: "Token de acesso inválido",
   REQUIRED_ACCESS_TOKEN: "Token de acesso necessário",
