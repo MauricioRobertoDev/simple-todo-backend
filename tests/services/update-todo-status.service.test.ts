@@ -5,11 +5,16 @@ import { Message } from "@/util/messages";
 import { DatabaseError } from "@/errors/database.error";
 import { InMemoryTodoRepository } from "../repositories/in-memory-todo.repository";
 import crypto from "node:crypto";
+import { ErrorBundle } from "@/shared/error-bundle";
 
 describe("UpdateStatusTodoService", () => {
   test("Deve editar o status de uma todo", async () => {
     const todoRepository = new InMemoryTodoRepository();
-    const updateStatusTodoService = new UpdateStatusTodoService(todoRepository);
+    const editTodoService = new EditTodoService(todoRepository);
+    const updateStatusTodoService = new UpdateStatusTodoService(
+      todoRepository,
+      editTodoService
+    );
 
     const todo = Todo.create({
       description: "valid_description",
@@ -57,9 +62,29 @@ describe("UpdateStatusTodoService", () => {
     expect(result2.status.getValue()).toBe("DONE");
   });
 
+  test("Deve retornar um ErrorBundle com os errors", async () => {
+    const todoRepository = new InMemoryTodoRepository();
+    const editTodoService = new EditTodoService(todoRepository);
+    const updateStatusTodoService = new UpdateStatusTodoService(
+      todoRepository,
+      editTodoService
+    );
+
+    const result = await updateStatusTodoService.execute({
+      id: "invalid_todo_id",
+    });
+
+    expect(result.isLeft()).toBeTruthy();
+    expect(result.getValue()).toBeInstanceOf(ErrorBundle);
+  });
+
   test("Deve estourar um DatabaseError o banco de dados falhe", async () => {
     const todoRepository = new InMemoryTodoRepository();
-    const updateStatusTodoService = new EditTodoService(todoRepository);
+    const editTodoService = new EditTodoService(todoRepository);
+    const updateStatusTodoService = new UpdateStatusTodoService(
+      todoRepository,
+      editTodoService
+    );
 
     const todo = Todo.create({
       description: "valid_description",
@@ -73,7 +98,6 @@ describe("UpdateStatusTodoService", () => {
 
     const result = updateStatusTodoService.execute({
       id: (todo.getValue() as Todo).id,
-      description: `valid_description`,
     });
 
     expect(result).rejects.toThrow(
