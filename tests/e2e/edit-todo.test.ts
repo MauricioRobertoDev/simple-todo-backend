@@ -66,10 +66,39 @@ describe("EditTodo", () => {
       },
     });
 
+    const user2 = await prisma.userModel.create({
+      data: {
+        id: crypto.randomUUID(),
+        name: "valid_name_3",
+        email: "valid_email_3@domain.com",
+        password: "valid_password_3",
+      },
+    });
+
     const token = AuthService.generateJwtToken({ id: user.id });
 
-    const response = await request(app)
+    let response = await request(app)
       .post(`/editar-todo/${crypto.randomUUID()}`)
+      .set("authorization", "Bearer " + token)
+      .send({
+        description: "valid_description_2",
+      });
+
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+    expect(response.body.errors).toBeDefined();
+    expect(response.body.errors.id[0]).toBe(Message.TODO_NOT_FOUND);
+    expect(response.body.message).toBe(Message.VALIDATION_ERRORS);
+
+    const todo = await prisma.todoModel.create({
+      data: {
+        id: crypto.randomUUID(),
+        description: "valid_description",
+        ownerId: user2.id,
+      },
+    });
+
+    response = await request(app)
+      .post(`/editar-todo/${todo.id}`)
       .set("authorization", "Bearer " + token)
       .send({
         description: "valid_description_2",
