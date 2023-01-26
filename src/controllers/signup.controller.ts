@@ -24,9 +24,11 @@ export class SignupController implements IController {
       });
     }
 
-    const userData: Omit<UserData, "password"> = UserMapper.toDTO(
+    const userData: Partial<UserData> = UserMapper.toDTO(
       userDataOrErrors.getValue()
     );
+
+    delete userData.password;
 
     return res.status(HttpStatus.CREATED).json({
       message: Message.CREATED_ACCOUNT,

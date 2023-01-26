@@ -23,9 +23,11 @@ export class SigninController implements IController {
       });
     }
 
-    const userData: Omit<UserData, "password"> = UserMapper.toDTO(
+    const userData: Partial<UserData> = UserMapper.toDTO(
       userDataOrErrors.getValue()
     );
+
+    delete userData.password;
 
     return res.status(HttpStatus.OK).json({
       message: Message.LOGIN_SUCCESS,
