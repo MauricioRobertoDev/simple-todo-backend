@@ -1,5 +1,6 @@
 import { CreateTodoController } from "@/controllers/create-todo.controller";
 import { EditTodoController } from "@/controllers/edit-todo.controller";
+import { ListTodoController } from "@/controllers/list-todo.controller";
 import { UpdateStatusTodoController } from "@/controllers/update-todo-status.controller";
 import { auth } from "@/middlewares/auth.middleware";
 import { Router } from "express";
@@ -13,5 +14,6 @@ todoRouter.post(
   auth,
   new UpdateStatusTodoController().handle
 );
+todoRouter.get("/listar-todos", auth, new ListTodoController().handle);
 
 export default todoRouter;
