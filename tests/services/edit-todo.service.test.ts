@@ -12,9 +12,11 @@ describe("EditTodoService", () => {
     const todoRepository = new InMemoryTodoRepository();
     const editTodoService = new EditTodoService(todoRepository);
 
+    const ownerId = crypto.randomUUID();
+
     const todo = Todo.create({
       description: "valid_description",
-      ownerId: crypto.randomUUID(),
+      ownerId: ownerId,
       createdAt: new Date(Date.now()),
     });
 
@@ -36,13 +38,45 @@ describe("EditTodoService", () => {
     expect(result.startAt).toBeDefined();
     expect(result.endAt).toBeDefined();
 
-    const updatedTodo = await todoRepository.findById(result.id);
+    let updatedTodo = await todoRepository.findById(result.id);
     expect(updatedTodo?.description.getValue()).toBe(
       "another_valid_description"
     );
     expect(updatedTodo?.createdAt).toBeDefined();
     expect(updatedTodo?.startAt).toBeDefined();
     expect(updatedTodo?.endAt).toBeDefined();
+
+    result = (
+      await editTodoService.execute({
+        id: (todo.getValue() as Todo).id,
+        description: "another_valid_description_2",
+        requester: ownerId,
+      })
+    ).getValue();
+
+    expect(result).toBeInstanceOf(Todo);
+    result = result as Todo;
+    expect(result.description.getValue()).toBe("another_valid_description_2");
+    updatedTodo = await todoRepository.findById(result.id);
+    expect(updatedTodo?.description.getValue()).toBe(
+      "another_valid_description_2"
+    );
+
+    result = (
+      await editTodoService.execute({
+        id: (todo.getValue() as Todo).id,
+        description: "another_valid_description_3",
+        requester: "any_another_user_id",
+      })
+    ).getValue();
+
+    expect(result).toBeInstanceOf(ErrorBundle);
+    result = result as ErrorBundle;
+    expect(result.getErrors()[0].message).toBe(Message.TODO_NOT_FOUND);
+    updatedTodo = await todoRepository.findById((todo.getValue() as Todo).id);
+    expect(updatedTodo?.description.getValue()).toBe(
+      "another_valid_description_2"
+    );
   });
 
   test("Deve retornar um ErrorBundle caso tenha qualquer erro na atualização", async () => {
