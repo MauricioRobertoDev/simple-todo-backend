@@ -5,28 +5,11 @@ async function setupEnv() {
   console.log("🚀 Checando as váriaveis do sistema...");
 
   const notDefined = [];
-  const need = [
-    "SERVER_PORT",
-    "APP_SECRET",
-    "DATABASE_USER",
-    "DATABASE_PASS",
-    "DATABASE_HOST",
-    "DATABASE_PORT",
-    "DATABASE_NAME",
-  ];
+  const need = ["SERVER_PORT", "APP_SECRET", "DATABASE_URL"];
 
   need.forEach((name) => {
     if (!process.env[name]) notDefined.push(name);
   });
-
-  const dbUser = process.env.DATABASE_USER;
-  const dbPass = process.env.DATABASE_PASS;
-  const dbHost = process.env.DATABASE_HOST;
-  const dbPort = process.env.DATABASE_PORT;
-  const dbName = process.env.DATABASE_NAME;
-  const connectionString = `postgresql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`;
-  process.env.DATABASE_URL = connectionString;
-  global.process.env.DATABASE_URL = connectionString;
 
   if (notDefined.length > 0) {
     console.log(
