@@ -17,4 +17,8 @@ export class TodoStatus {
 
     return right(new TodoStatus(status));
   }
+
+  public getValue(): string {
+    return this.value;
+  }
 }
