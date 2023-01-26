@@ -17,6 +17,8 @@ export class InMemoryTodoRepository implements TodoRepository {
   }
 
   async save(todo: Todo): Promise<void> {
+    const index = this._todos.findIndex((item) => item.id == todo.id);
+    this._todos.splice(index, 1);
     this._todos.push(todo);
   }
 
