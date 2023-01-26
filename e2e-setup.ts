@@ -1,7 +1,7 @@
 import pg from "pg";
 import crypto from "crypto";
 import { execSync } from "child_process";
-import { afterEach, beforeEach } from "vitest";
+import { beforeAll, afterAll } from "vitest";
 
 const schema = `test_${crypto.randomUUID()}`;
 const connectionString = `${process.env.DATABASE_URL}?schema=${schema}`;
