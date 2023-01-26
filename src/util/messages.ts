@@ -29,4 +29,5 @@ export const Message = {
   TODO_NOT_FOUND: "Todo não encontrada verefique o id",
   UPDATED_TODO: "Todo atualizada",
   LISTED_TODOS: "Todos listadas",
+  DELETED_TODO: "Todo excluída",
 };
