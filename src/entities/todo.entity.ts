@@ -33,7 +33,6 @@ export class Todo extends Entity<TodoProps> {
 
     if (descriptionOrErrors.isLeft())
       bundle.combine(descriptionOrErrors.getValue());
-    if (statusOrErrors.isLeft()) bundle.combine(statusOrErrors.getValue());
 
     if (bundle.hasErrors()) return left(bundle);
 
