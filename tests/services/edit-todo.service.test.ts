@@ -15,20 +15,34 @@ describe("EditTodoService", () => {
     const todo = Todo.create({
       description: "valid_description",
       ownerId: crypto.randomUUID(),
+      createdAt: new Date(Date.now()),
     });
 
     await todoRepository.save(todo.getValue() as Todo);
 
-    const result = await editTodoService.execute({
-      id: (todo.getValue() as Todo).id,
-      description: "another_valid_description",
-    });
+    let result = (
+      await editTodoService.execute({
+        id: (todo.getValue() as Todo).id,
+        description: "another_valid_description",
+        startAt: new Date(Date.now()),
+        endAt: new Date(Date.now()),
+      })
+    ).getValue();
 
-    expect(result.isRight()).toBeTruthy();
-    expect(result.getValue()).toBeInstanceOf(Todo);
-    expect((result.getValue() as Todo).description.getValue()).toBe(
+    expect(result).toBeInstanceOf(Todo);
+    result = result as Todo;
+    expect(result.description.getValue()).toBe("another_valid_description");
+    expect(result.createdAt).toBeDefined();
+    expect(result.startAt).toBeDefined();
+    expect(result.endAt).toBeDefined();
+
+    const updatedTodo = await todoRepository.findById(result.id);
+    expect(updatedTodo?.description.getValue()).toBe(
       "another_valid_description"
     );
+    expect(updatedTodo?.createdAt).toBeDefined();
+    expect(updatedTodo?.startAt).toBeDefined();
+    expect(updatedTodo?.endAt).toBeDefined();
   });
 
   test("Deve retornar um ErrorBundle caso tenha qualquer erro na atualização", async () => {

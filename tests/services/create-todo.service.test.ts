@@ -13,13 +13,16 @@ describe("CreateTodoService", () => {
     const userRepository = new InMemoryTodoRepository();
     const createTodoService = new CreateTodoService(userRepository);
 
-    const result = await createTodoService.execute({
-      description: "valid_description",
-      ownerId: crypto.randomUUID(),
-    });
+    let result = (
+      await createTodoService.execute({
+        description: "valid_description",
+        ownerId: crypto.randomUUID(),
+      })
+    ).getValue();
 
-    expect(result.isRight()).toBeTruthy();
-    expect(result.getValue()).toBeInstanceOf(Todo);
+    expect(result).toBeInstanceOf(Todo);
+    result = result as Todo;
+    expect(result.createdAt).toBeDefined();
   });
 
   test("Deve retornar um ErrorBundle caso tenha qualquer erro na criação", async () => {
