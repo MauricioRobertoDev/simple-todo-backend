@@ -63,6 +63,14 @@ describe("EditTodoService", () => {
 
     expect(result.isLeft()).toBeTruthy();
     expect(result.getValue()).toBeInstanceOf(ErrorBundle);
+
+    const result2 = await editTodoService.execute({
+      id: "invalid_id",
+      description: "valid_description",
+    });
+
+    expect(result2.isLeft()).toBeTruthy();
+    expect(result2.getValue()).toBeInstanceOf(ErrorBundle);
   });
 
   test("Deve estourar um DatabaseError o banco de dados falhe", async () => {
