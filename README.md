@@ -52,7 +52,7 @@ Instale as dependências
   npm install
 ```
 
-Suba o banco de dados
+Suba o banco de dados, mas antes verifique se o docker está rodando
 
 ```bash
   docker-compose up -d
