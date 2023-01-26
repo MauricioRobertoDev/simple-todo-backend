@@ -47,8 +47,6 @@ describe("DeleteTodoService", () => {
       requester: ownerId,
     });
 
-    console.log(result.getValue());
-
     expect(result.isRight()).toBeTruthy();
     expect(result.getValue()).toBe(undefined);
   });
