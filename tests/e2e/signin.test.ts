@@ -23,6 +23,7 @@ describe("Signin", () => {
     expect(response.body).toBeDefined();
     expect(response.body.data).toBeDefined();
     expect(response.body.data.accessToken).toBeDefined();
+    expect(response.body.data.password).not.toBeDefined();
     expect(response.body.message).toBe(Message.LOGIN_SUCCESS);
   });
 

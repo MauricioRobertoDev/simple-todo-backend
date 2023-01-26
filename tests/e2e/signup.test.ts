@@ -17,6 +17,7 @@ describe("Signup", () => {
     expect(response.body).toBeDefined();
     expect(response.body.data).toBeDefined();
     expect(response.body.message).toBe(Message.CREATED_ACCOUNT);
+    expect(response.body.data.password).not.toBeDefined();
   });
 
   test("[e2e] Deve retornar os erros corretamente", async () => {
