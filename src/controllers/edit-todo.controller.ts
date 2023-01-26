@@ -16,6 +16,7 @@ export class EditTodoController implements IController {
       description: req.body.description,
       startAt: req.body.start_at,
       endAt: req.body.end_at,
+      requester: req.userId,
     });
 
     if (todoOrErrors.isLeft()) {
