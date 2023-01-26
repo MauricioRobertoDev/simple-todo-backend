@@ -15,7 +15,6 @@ describe("CreateTodoService", () => {
 
     const result = await createTodoService.execute({
       description: "valid_description",
-      createdAt: new Date(Date.now()),
       ownerId: crypto.randomUUID(),
     });
 
@@ -29,7 +28,6 @@ describe("CreateTodoService", () => {
 
     const result = await createTodoService.execute({
       description: `valid_description_but_to_long_${"a".repeat(255)}`,
-      createdAt: new Date(Date.now()),
       ownerId: crypto.randomUUID(),
     });
 
@@ -45,7 +43,6 @@ describe("CreateTodoService", () => {
 
     const result = createTodoService.execute({
       description: "valid_description",
-      createdAt: new Date(Date.now()),
       ownerId: crypto.randomUUID(),
     });
 

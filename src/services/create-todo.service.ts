@@ -21,6 +21,7 @@ export class CreateTodoService implements IService<CreateTodoInput, Todo> {
     const todoOrError = Todo.create({
       description,
       ownerId,
+      createdAt: new Date(Date.now()),
     });
 
     if (todoOrError.isLeft()) return left(todoOrError.getValue());
