@@ -26,7 +26,7 @@ describe("EditTodoService", () => {
 
     expect(result.isRight()).toBeTruthy();
     expect(result.getValue()).toBeInstanceOf(Todo);
-    expect((result.getValue() as Todo).description).toBe(
+    expect((result.getValue() as Todo).description.getValue()).toBe(
       "another_valid_description"
     );
   });
@@ -64,13 +64,13 @@ describe("EditTodoService", () => {
 
     vi.spyOn(todoRepository, "save").mockRejectedValue("");
 
-    const result = await editTodoService.execute({
+    const result = editTodoService.execute({
       id: (todo.getValue() as Todo).id,
       description: `valid_description`,
     });
 
     expect(result).rejects.toThrow(
-      new DatabaseError(Message.DB_ERROR_CREATING_TODO)
+      new DatabaseError(Message.DB_ERROR_UPDATING_TODO)
     );
   });
 });
