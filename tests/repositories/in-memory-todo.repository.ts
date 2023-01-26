@@ -2,18 +2,10 @@ import { Todo } from "@/entities";
 import { TodoRepository } from "@/repositories/interfaces";
 
 export class InMemoryTodoRepository implements TodoRepository {
-  private _todos: Todo[] = [];
+  public _todos: Todo[] = [];
 
   async findAllByUserId(userId: string): Promise<Todo[]> {
-    const todos: Todo[] = [];
-
-    this._todos.map((todo) => {
-      if (todo.ownerId == userId) {
-        todos.push(todo);
-      }
-    });
-
-    return todos;
+    return this._todos.filter((todo) => todo.ownerId == userId);
   }
 
   async save(todo: Todo): Promise<void> {
