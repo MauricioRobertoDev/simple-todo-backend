@@ -1,6 +1,7 @@
 import { IController } from "@/interfaces";
 import { TodoMapper } from "@/mappers/todo.mapper";
 import { PrismaTodoRepository } from "@/repositories/prisma/prisma-todo.repository";
+import { EditTodoService } from "@/services";
 import { UpdateStatusTodoService } from "@/services/update-todo-status.service";
 import { HttpStatus } from "@/util/http-status";
 import { Message } from "@/util/messages";
@@ -9,7 +10,11 @@ import { Request, Response } from "express";
 export class UpdateStatusTodoController implements IController {
   async handle(req: Request, res: Response): Promise<Response> {
     const todoRepository = new PrismaTodoRepository();
-    const updateStatusService = new UpdateStatusTodoService(todoRepository);
+    const editTodoService = new EditTodoService(todoRepository);
+    const updateStatusService = new UpdateStatusTodoService(
+      todoRepository,
+      editTodoService
+    );
 
     const todoOrErrors = await updateStatusService.execute({
       id: req.params.id,
