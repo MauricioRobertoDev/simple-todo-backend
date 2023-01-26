@@ -12,6 +12,7 @@ export type EditTodoInput = {
   description?: string;
   startAt?: Date;
   endAt?: Date;
+  requester?: string;
 };
 
 export class EditTodoService implements IService<EditTodoInput, Todo> {
@@ -22,11 +23,12 @@ export class EditTodoService implements IService<EditTodoInput, Todo> {
     description,
     startAt,
     endAt,
+    requester,
   }: EditTodoInput): Promise<Either<ErrorBundle, Todo>> {
     const bundle = ErrorBundle.create();
     const oldTodo = await this.todoRepository.findById(id);
 
-    if (!oldTodo) {
+    if (!oldTodo || (requester && requester != oldTodo.ownerId)) {
       bundle.add(new AppError("id", Message.TODO_NOT_FOUND));
       return left(bundle);
     }
