@@ -12,20 +12,28 @@ describe("AuthenticateUserService", () => {
     const createUserService = new CreateUserService(userRepository);
     const authenticateUserService = new AuthenticateUserService(userRepository);
 
-    await createUserService.execute({
-      name: "valid_name",
-      email: "valid_email@domain.com",
-      password: "valid_password",
-    });
+    const user = (
+      await createUserService.execute({
+        name: "valid_name",
+        email: "valid_email@domain.com",
+        password: "valid_password",
+      })
+    ).getValue() as User;
 
-    const result = await authenticateUserService.execute({
-      email: "valid_email@domain.com",
-      password: "valid_password",
-    });
+    expect(user.isLoggedIn()).toBeFalsy();
 
-    expect(result.isRight()).toBeTruthy();
-    expect((result.getValue() as User).isLoggedIn()).toBeTruthy();
-    expect((result.getValue() as User).accessToken).toBeDefined();
+    let result = (
+      await authenticateUserService.execute({
+        email: "valid_email@domain.com",
+        password: "valid_password",
+      })
+    ).getValue();
+
+    expect(result).toBeInstanceOf(User);
+    result = result as User;
+    expect(result.isLoggedIn()).toBeTruthy();
+    expect(result.accessToken).toBeDefined();
+    expect(result.isLoggedIn()).toBeTruthy();
   });
 
   test("Deve estourar um ServerError caso APP_SECRET não tenha sido definido", async () => {
