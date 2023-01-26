@@ -7,6 +7,7 @@ export type TodoData = {
   createdAt: Date | undefined;
   startAt: Date | undefined;
   endAt: Date | undefined;
+  status: string;
 };
 
 export class TodoMapper {
@@ -18,6 +19,7 @@ export class TodoMapper {
       createdAt: todo.createdAt,
       startAt: todo.startAt,
       endAt: todo.endAt,
+      status: todo.status.getValue(),
     };
   }
 }
