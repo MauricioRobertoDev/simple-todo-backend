@@ -11,7 +11,7 @@ export type DeleteTodoInput = {
   requester?: string;
 };
 
-export class EditTodoService implements IService<DeleteTodoInput, void> {
+export class DeleteTodoService implements IService<DeleteTodoInput, void> {
   constructor(private todoRepository: TodoRepository) {}
 
   async execute({
@@ -30,7 +30,7 @@ export class EditTodoService implements IService<DeleteTodoInput, void> {
       await this.todoRepository.delete(todo);
       return right(undefined);
     } catch (error) {
-      throw new DatabaseError(Message.DB_ERROR_UPDATING_TODO);
+      throw new DatabaseError(Message.DB_ERROR_DELETING_TODO);
     }
   }
 }
