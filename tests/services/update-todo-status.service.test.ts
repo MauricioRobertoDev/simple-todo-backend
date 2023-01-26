@@ -18,6 +18,7 @@ describe("UpdateStatusTodoService", () => {
     }).getValue() as Todo;
 
     expect(todo.startAt).not.toBeDefined();
+    expect(todo.status.getValue()).toBe("NOT_STARTED");
 
     await todoRepository.save(todo);
 
@@ -35,6 +36,7 @@ describe("UpdateStatusTodoService", () => {
     result = result as Todo;
     expect(result.startAt).toBeDefined();
     expect(result.endAt).not.toBeDefined();
+    expect(result.status.getValue()).toBe("IN_PROGRESS");
 
     let result2 = (
       await updateStatusTodoService.execute({
@@ -52,6 +54,7 @@ describe("UpdateStatusTodoService", () => {
     expect(result2.startAt).toBeDefined();
     expect(result2.startAt?.toDateString).toBe(result.startAt?.toDateString);
     expect(result2.endAt).toBeDefined();
+    expect(result2.status.getValue()).toBe("DONE");
   });
 
   test("Deve estourar um DatabaseError o banco de dados falhe", async () => {
