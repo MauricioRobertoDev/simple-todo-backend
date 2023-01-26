@@ -3,6 +3,11 @@ import prisma from "@/database/prisma.client";
 import { TodoRepository } from "../interfaces";
 
 export class PrismaTodoRepository implements TodoRepository {
+  async delete(todo: Todo): Promise<void> {
+    await prisma.todoModel.delete({
+      where: { id: todo.id },
+    });
+  }
   async findAllByUserId(userId: string): Promise<Todo[]> {
     const todoModels = await prisma.todoModel.findMany({
       where: { ownerId: userId },
